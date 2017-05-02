@@ -8,7 +8,6 @@ public class HeapSort {
         generate100More(array, currentCapacity);
         displayLatest100Elements(array, currentCapacity);
         buildHeap(array, currentCapacity);
-        displayLatest100Elements(array, currentCapacity);
 
         while (currentCapacity < 2000) {
             currentCapacity += 100;
@@ -17,7 +16,7 @@ public class HeapSort {
             buildHeap(array, currentCapacity);
         }
 
-        array = heapSort(array, currentCapacity);
+        heapSort(array, currentCapacity);
         displayArrayData(array);
 
         System.out.println(arrayIsSortedInAscendingOrder(array));
@@ -48,21 +47,15 @@ public class HeapSort {
         }
     }
 
-    private static int[] heapSort(final int[] array, int currentCapacity) {
-        int[] sortedArray = new int[currentCapacity];
-
+    private static void heapSort(final int[] array, int currentCapacity) {
         while (currentCapacity > 0) {
-            sortedArray[currentCapacity - 1] = array[0];
-
             int temp = array[0];
-            array[0] = array[currentCapacity];
-            array[currentCapacity] = temp;
+            array[0] = array[currentCapacity - 1];
+            array[currentCapacity - 1] = temp;
 
-            buildHeap(array, currentCapacity);
             currentCapacity--;
+            buildHeap(array, currentCapacity);
         }
-
-        return sortedArray;
     }
 
     private static int[] generate100More(int[] array, int currentCapacity) {
@@ -142,7 +135,7 @@ public class HeapSort {
     }
 
     private static boolean arrayIsSortedInAscendingOrder(final int[] array) {
-        for (int index = 1; index < array.length; index++) {
+        for (int index = 1; index < 2000; index++) {
             if (array[index - 1] > array[index]) {
                 return false;
             }
