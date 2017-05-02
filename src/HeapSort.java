@@ -10,15 +10,17 @@ public class HeapSort {
         buildHeap(array, currentCapacity);
         displayLatest100Elements(array, currentCapacity);
 
-//        while (currentCapacity < 2000) {
-//            currentCapacity += 100;
-//            array = generate100More(array, currentCapacity);
-//            displayLatest100Elements(array, currentCapacity);
-////            repair heap
-//        }
-//
-////        heap sort
-//        displayArrayData(array);
+        while (currentCapacity < 2000) {
+            currentCapacity += 100;
+            array = generate100More(array, currentCapacity);
+            displayLatest100Elements(array, currentCapacity);
+            buildHeap(array, currentCapacity);
+        }
+
+        array = heapSort(array, currentCapacity);
+        displayArrayData(array);
+
+        System.out.println(arrayIsSortedInAscendingOrder(array));
     }
 
     private static void buildHeap(final int[] array, final int currentCapacity) {
@@ -44,6 +46,23 @@ public class HeapSort {
                 }
             }
         }
+    }
+
+    private static int[] heapSort(final int[] array, int currentCapacity) {
+        int[] sortedArray = new int[currentCapacity];
+
+        while (currentCapacity > 0) {
+            sortedArray[currentCapacity - 1] = array[0];
+
+            int temp = array[0];
+            array[0] = array[currentCapacity];
+            array[currentCapacity] = temp;
+
+            buildHeap(array, currentCapacity);
+            currentCapacity--;
+        }
+
+        return sortedArray;
     }
 
     private static int[] generate100More(int[] array, int currentCapacity) {
